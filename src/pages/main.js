@@ -53,10 +53,10 @@ class Main extends Component {
 
     render(){
         const {printa} = this.props;
-        printa==='sim' ? console.log(this.props) : null;
+        console.log(this.props);
         return (
             <View style={styles.container}>
-                <TouchableOpacity onPress={() => this.props.printaTela()}>CLICA E OLHA NO CONSOLE</TouchableOpacity>
+                <TouchableOpacity onPress={() => this.props.printaTela()}><Text>CLICA E OLHA NO CONSOLE</Text></TouchableOpacity>
                 <FlatList 
                 contentContainerStyle={styles.list}
                 data={this.state.docs} 
@@ -119,7 +119,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    printaTela: dispatch({type: 'TESTA_REDUCER', payload: {}});
+    printaTela: () => dispatch({type: 'TESTA_REDUCER', payload: {}})
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
