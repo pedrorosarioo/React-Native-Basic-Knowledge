@@ -1,9 +1,14 @@
 import React, {Component} from 'react';
 import {View, Text, FlatList, TouchableOpacity, StyleSheet} from 'react-native';
 import api from '../services/api';
+import { connect } from 'react-redux';
 
 
-export default class Main extends Component {
+class Main extends Component {
+    constructor(props){
+        super(props);
+    }
+
     static navigationOptions ={
         title: 'NavTest RN',
     }
@@ -47,8 +52,11 @@ export default class Main extends Component {
     }
 
     render(){
+        const {printa} = this.props;
+        printa==='sim' ? console.log(this.props) : null;
         return (
             <View style={styles.container}>
+                <TouchableOpacity onPress={() => this.props.printaTela()}>CLICA E OLHA NO CONSOLE</TouchableOpacity>
                 <FlatList 
                 contentContainerStyle={styles.list}
                 data={this.state.docs} 
@@ -105,3 +113,13 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
     }
 });
+
+const mapStateToProps = state => ({
+    test: state.knowledges.printa,
+});
+
+const mapDispatchToProps = dispatch => ({
+    printaTela: dispatch({type: 'TESTA_REDUCER', payload: {}});
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
